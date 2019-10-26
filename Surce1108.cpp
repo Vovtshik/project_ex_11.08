@@ -7,7 +7,7 @@
 #include "../std_lib_facilities.h"
 
 void in_file_text(string& name_file, vector<string>& data);
-void add_words_to_dict(vector<string>& dict, string& str);
+void add_words_to_dict(vector<string>& dict, string& str);   // The function creates a dictionary from the words that make up the text of a multiline file.
 string tolower(const string& s);                             // The function converts all characters of the string to lowercase.
 string replaces_abbreviations_with_words(const string& str); // The function replaces abbreviations with words.
 string Punctuation_for_spaces(const string& str);            // The function replaces punctuation marks (.,;? - ') 
