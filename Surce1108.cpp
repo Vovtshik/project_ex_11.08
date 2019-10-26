@@ -95,3 +95,8 @@ string replaces_abbreviations_with_words(const string& str)
     }
     return rez + '\n';
 }
+
+void add_words_to_dict(vector<string>& dict, string& str)
+{
+    
+}
