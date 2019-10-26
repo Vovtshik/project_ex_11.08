@@ -16,16 +16,6 @@ string Punctuation_for_spaces(const string& str);            // The function rep
                                                    
 int main()
 {
-    /* string str = " - don't use the \"as-if\" rule. \n - don't use the as-if rule. \n I don't know it; \n He doesn't speak English, \n I won't see it - \n I didn't see it: \n You haven't known it. \n \"She hasn't called you.\" \n";
-    cout << "Original line: \n" << str << '\n';
-    cout << "Changed line (punctuation characters replaced by spaces): \n"
-        << Punctuation_for_spaces(str) << '\n';
-    cout << "Changed string (all letters are lowercase): \n"
-        << tolower(str) << '\n';
-    cout << "Changed line (abbreviations replaced by full words): \n"
-        << replaces_abbreviations_with_words(str) << '\n';
-    cout << "A line to which all three changes apply: \n"
-        << replaces_abbreviations_with_words(tolower(Punctuation_for_spaces(str))) << '\n'; */
     string name_file;
     vector<string> data;
     cout << "Enter the name of the text file \n"
@@ -33,7 +23,6 @@ int main()
     cin >> name_file;
     in_file_text(name_file, data);
     vector<string> dictionary;
-    // in_file_text(name_file, data);
     for(string s: data)
     {
         add_words_to_dict(dictionary, s);
@@ -123,7 +112,6 @@ void add_words_to_dict(vector<string>& dict, string& str)
                     dict.push_back(v_temp[i]);
                 flag = false;
             }
-            
     }
 }
 
