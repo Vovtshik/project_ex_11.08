@@ -6,6 +6,7 @@
 
 #include "../std_lib_facilities.h"
 
+void in_file_text(string& name_file, vector<string>& data);
 void add_words_to_dict(vector<string>& dict, string& str);
 string tolower(const string& s);                             // The function converts all characters of the string to lowercase.
 string replaces_abbreviations_with_words(const string& str); // The function replaces abbreviations with words.
@@ -15,7 +16,7 @@ string Punctuation_for_spaces(const string& str);            // The function rep
                                                    
 int main()
 {
-    string str = " - don't use the \"as-if\" rule. \n - don't use the as-if rule. \n I don't know it; \n He doesn't speak English, \n I won't see it - \n I didn't see it: \n You haven't known it. \n \"She hasn't called you.\" \n";
+    /* string str = " - don't use the \"as-if\" rule. \n - don't use the as-if rule. \n I don't know it; \n He doesn't speak English, \n I won't see it - \n I didn't see it: \n You haven't known it. \n \"She hasn't called you.\" \n";
     cout << "Original line: \n" << str << '\n';
     cout << "Changed line (punctuation characters replaced by spaces): \n"
         << Punctuation_for_spaces(str) << '\n';
@@ -24,7 +25,24 @@ int main()
     cout << "Changed line (abbreviations replaced by full words): \n"
         << replaces_abbreviations_with_words(str) << '\n';
     cout << "A line to which all three changes apply: \n"
-        << replaces_abbreviations_with_words(tolower(Punctuation_for_spaces(str))) << '\n';
+        << replaces_abbreviations_with_words(tolower(Punctuation_for_spaces(str))) << '\n'; */
+    string name_file;
+    vector<string> data;
+    cout << "Enter the name of the text file \n"
+        << "for reading and compiling a dictionary from the words of this text:\n";
+    cin >> name_file;
+    in_file_text(name_file, data);
+    vector<string> dictionary;
+    // in_file_text(name_file, data);
+    for(string s: data)
+    {
+        add_words_to_dict(dictionary, s);
+    }
+    sort(dictionary.begin(), dictionary.end());
+    for(string s: dictionary)
+    {
+        cout << s << '\n';
+    }
     return 0;
 }
 
@@ -47,27 +65,10 @@ string Punctuation_for_spaces(const string& str)
     for(char ch; ss.get(ch);)
     {
         ch_t = ch;
-        if(ch == '"')
-        {
-            flag = flag?false : true;
-            temp = temp + '"';
-        }
-        else if(flag)
+        if(ch == '.' || ch == ';' || ch == ':' || ch == ',' || ch == '?' || ch == '"' || ch == '-')
+            temp += ' ';
+        else
             temp = temp + ch;
-        else if(!flag)
-        {
-            if(ch == '.' || ch == ';' || ch == ':' || ch == ',' || ch == '?')
-                temp = temp + ' ';
-            else if(ch == '-')
-                {
-                    if(ch_t != ' ' && ss.peek() != ' ')
-                        temp += '-';
-                    else
-                        temp += ' ';
-                }
-            else
-                temp = temp + ch;
-        }  
     }
     return temp;
 }
@@ -102,13 +103,38 @@ void add_words_to_dict(vector<string>& dict, string& str)
     istringstream is(replaces_abbreviations_with_words(tolower(Punctuation_for_spaces(str))));
     for(string s; is >> s;)
     {
-        dict.push_back(s);
+        v_temp.push_back(s);
     }   
-    sort(dict.begin(), dict.end());
-    for(int i = 0; i < dict.size(); ++i)
+    sort(v_temp.begin(), v_temp.end());
+    for(int i = 0; i < v_temp.size(); ++i)
     {
-        if(i == 0 || dict[i] != dict[i-1])
-            v_temp.push_back(v_temp[i]);
+        bool flag = false;
+        if(i == 0 || v_temp[i] != v_temp[i-1])
+            {
+                for(string s: dict)
+                {
+                    if(s == v_temp[i])
+                        {
+                            flag = true;
+                            break;
+                        }       
+                }
+                if(!flag)
+                    dict.push_back(v_temp[i]);
+                flag = false;
+            }
+            
     }
-    dict = v_temp;
+}
+
+void in_file_text(string& name_file, vector<string>& data)
+{
+    ifstream ist(name_file);
+    if(!ist) error("Unable to open input file ", name_file);
+    ist.exceptions(ist.exceptions() | ios_base::badbit);
+    string temp_str;
+    for(string temp_str; getline(ist, temp_str);)
+    {
+        data.push_back(temp_str);
+    }
 }
