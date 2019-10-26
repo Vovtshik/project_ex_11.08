@@ -98,5 +98,17 @@ string replaces_abbreviations_with_words(const string& str)
 
 void add_words_to_dict(vector<string>& dict, string& str)
 {
-    
+    vector<string> v_temp;
+    istringstream is(replaces_abbreviations_with_words(tolower(Punctuation_for_spaces(str))));
+    for(string s; is >> s;)
+    {
+        dict.push_back(s);
+    }   
+    sort(dict.begin(), dict.end());
+    for(int i = 0; i < dict.size(); ++i)
+    {
+        if(i == 0 || dict[i] != dict[i-1])
+            v_temp.push_back(v_temp[i]);
+    }
+    dict = v_temp;
 }
