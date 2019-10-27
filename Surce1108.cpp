@@ -1,18 +1,14 @@
-// Modification of the project_ex_11.06, program
-// so that it replaces the abbreviations don't with do not words, 
-// can't - cannot, etc .; Do not touch hyphens inside words; 
-// convert all characters to lowercase.
+// Training program. Uses functions from project_ex_11.07 to create a dictionary. 
+// The dictionary is created from a multi-line text file.
 
 
 #include "../std_lib_facilities.h"
 
-void in_file_text(string& name_file, vector<string>& data);
+void in_file_text(string& name_file, vector<string>& data);  // Function for reading lines from a file to a vector.
 void add_words_to_dict(vector<string>& dict, string& str);   // The function creates a dictionary from the words that make up the text of a multiline file.
 string tolower(const string& s);                             // The function converts all characters of the string to lowercase.
 string replaces_abbreviations_with_words(const string& str); // The function replaces abbreviations with words.
-string Punctuation_for_spaces(const string& str);            // The function replaces punctuation marks (.,;? - ') 
-                                                             //  with spaces (does not change characters between pairs
-                                                             //  of double quotes (")).
+string Punctuation_for_spaces(const string& str);            // The function replaces punctuation marks (.,;? - '") with spaces.
                                                    
 int main()
 {
